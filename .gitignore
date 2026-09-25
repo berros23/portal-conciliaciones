@@ -1,0 +1,12 @@
+# Entorno virtual y caché de Python
+.venv/
+__pycache__/
+*.pyc
+
+# Secretos: nunca subirlos a GitHub
+.env
+
+# Archivos del sistema y del editor
+.DS_Store
+Thumbs.db
+.vscode/
