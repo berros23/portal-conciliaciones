@@ -32,9 +32,9 @@ def parte_a_get_con_accept():
         print(f"  {nombre}: {valor}")
 
     # PREGUNTA A1: ¿Aparece tu Accept entre los encabezados que recibió el servidor?
-    # Respuesta:
+    # Respuesta: Si aparece, en la parte A aparece el Accpet: aplication/json que es el json con el cual me estari respondiendi
     # PREGUNTA A2: ¿Quién puso el Content-Type de la respuesta: tú o el servidor? ¿Por qué?
-    # Respuesta:
+    # Respuesta: Yo nunca lo puse y efectivamente esa els la pregunt, me parece fue el serviudoer,,ya que es ka etiquetapegada que describe el cuerpo que viaja
 
 
 def parte_b_post_con_json():
@@ -48,12 +48,17 @@ def parte_b_post_con_json():
     # TODO B3: imprime el Content-Type que RECIBIÓ el servidor:
     #          respuesta.json()["headers"]["Content-Type"]
     # TODO B4: imprime lo que el servidor entendió de tu cuerpo:
+
     #          respuesta.json()["json"]
+    respuesta = requests.post(f"{BASE_URL}/post", json=decision, timeout=TIMEOUT)
+    print("Código de estado:", respuesta.status_code)
+    print("Contente-Type que recibió el servidor:", respuesta.json()["headers"]["Content-Type"])
+    print("Lo que entendió el servidor:", respuesta.json()["json"])
 
     # PREGUNTA B1: tú no escribiste ningún Content-Type. ¿Quién lo puso y por qué?
-    # Respuesta:
+    # Respuesta: Lo puso el servidor, porque de esta es la manera en la cual sabemos que es lo que trae en la caja
     # PREGUNTA B2: en una API real que crea un recurso, ¿qué código esperarías en lugar de 200?
-    # Respuesta:
+    # Respuesta: Me gustaria tener un 401 ya que yo aún no le he dado los permisos para ingresar 
 
 
 def interpretar_codigo(codigo: int) -> str:
@@ -62,7 +67,17 @@ def interpretar_codigo(codigo: int) -> str:
     #          y uno genérico para cualquier otro código.
     #          Ejemplo para 403: "Tu usuario no tiene permiso para esta acción."
     #          Pista: usa if/elif o un diccionario con .get()
-    return "TODO: sin interpretar"
+
+    mensajes = {
+        200: "Consulta atendida correctamente.",
+        201: "Registro creado correctamente.",
+        400: "La solicitud tiene datos inválidos; revisa lo que capturaste.",
+        401: "Tu sesión no es válida o venció; inicia sesión de nuevo.",
+        403: "Tu usuario no tiene permiso para esta acción.",
+        404: "El lote o registro solicitado no existe.",
+        500: "Error interno del servidor; avisa a soporte.",
+    }
+    return mensajes.get(codigo, f"Código {codigo} no contemplado; avisa a soporte.")
 
 
 def parte_c_codigos():
@@ -74,7 +89,8 @@ def parte_c_codigos():
 
     # PREGUNTA C1: requests NO lanzó error con 404 ni con 500. ¿Por qué eso es
     #              peligroso si un programa solo revisa si "hubo respuesta"?
-    # Respuesta:
+    # Respuesta: Esto es debiod a que si mi programa solo ve si hay una respuesta, podria tomar el json devuelto como una respuesta valida , esto significara mostrarle 
+    # al analista data erronea o que esta corrupta
 
 
 if __name__ == "__main__":
