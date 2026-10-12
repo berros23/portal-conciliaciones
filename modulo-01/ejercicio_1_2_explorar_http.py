@@ -56,9 +56,10 @@ def parte_b_post_con_json():
     print("Lo que entendió el servidor:", respuesta.json()["json"])
 
     # PREGUNTA B1: tú no escribiste ningún Content-Type. ¿Quién lo puso y por qué?
-    # Respuesta: Lo puso el servidor, porque de esta es la manera en la cual sabemos que es lo que trae en la caja
+    # Respuesta: Lo puso la liberría request de mi porgrama, automáticamente, debiod a qu cuando use json = descision, convirtio el diccionario a JSON y le agregó 
+    # Content-Type:application/json. el servidor solo me mostro la etiqueta que recibió
     # PREGUNTA B2: en una API real que crea un recurso, ¿qué código esperarías en lugar de 200?
-    # Respuesta: Me gustaria tener un 401 ya que yo aún no le he dado los permisos para ingresar 
+    # Respuesta: 201 Created, porque indica que la petición tuvo éxito y además se creó un recurso nuevo. 200 solo dice que la petición se atendió bien
 
 
 def interpretar_codigo(codigo: int) -> str:
@@ -90,7 +91,7 @@ def parte_c_codigos():
     # PREGUNTA C1: requests NO lanzó error con 404 ni con 500. ¿Por qué eso es
     #              peligroso si un programa solo revisa si "hubo respuesta"?
     # Respuesta: Esto es debiod a que si mi programa solo ve si hay una respuesta, podria tomar el json devuelto como una respuesta valida , esto significara mostrarle 
-    # al analista data erronea o que esta corrupta
+    # al analista data erronea o que esta corruptagi
 
 
 if __name__ == "__main__":
